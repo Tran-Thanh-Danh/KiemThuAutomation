@@ -9,13 +9,20 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    
+    # Bổ sung: Chỉ định thư mục làm việc mặc định chứa code C#
+    defaults:
+      run:
+        working-directory: ./BlazeDemo.Tests
 
     steps:
     - name: 1. Checkout Source Code
-      uses: actions/checkout@v3
+      # Đã nâng cấp lên v4 để hết cảnh báo vàng
+      uses: actions/checkout@v4
 
     - name: 2. Setup .NET SDK Moi truong
-      uses: actions/setup-dotnet@v3
+      # Đã nâng cấp lên v4
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
