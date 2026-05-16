@@ -1,0 +1,29 @@
+name: .NET Core Test Automation Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 1. Checkout Source Code
+      uses: actions/checkout@v3
+
+    - name: 2. Setup .NET SDK Moi truong
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: 3. Khoi phuc cac thu vien Nuget (Selenium, NUnit)
+      run: dotnet restore
+
+    - name: 4. Bien dich Du an (Build)
+      run: dotnet build --no-restore --configuration Release
+
+    - name: 5. Kich hoat chay Tu dong hoa Test Giao dien
+      run: dotnet test --no-build --verbosity normal
